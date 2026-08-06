@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
@@ -45,6 +44,7 @@ export default function Home() {
         <title>The Cook Rat - المساحة الصوتية</title>
         <meta name="description" content="غرفة صوتية خاصة مع نظام مساعدين متكامل" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐀</text></svg>" />
+        <meta name="theme-color" content="#050a0f" />
       </Head>
 
       <div className="header">
@@ -150,6 +150,20 @@ export default function Home() {
           --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* إعادة تعيين كامل للخلفية */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          background: var(--bg-dark) !important;
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+        }
+
         .container {
           max-width: 440px;
           margin: 0 auto;
@@ -160,7 +174,7 @@ export default function Home() {
           overflow: hidden;
         }
 
-        /* خلفية نارية */
+        /* خلفية نارية سوداء بالكامل */
         .container::before {
           content: '';
           position: fixed;
@@ -169,15 +183,16 @@ export default function Home() {
           width: 200%;
           height: 200%;
           background: 
-            radial-gradient(ellipse at 20% 30%, rgba(0, 240, 255, 0.03) 0%, transparent 60%),
+            radial-gradient(ellipse at 20% 30%, rgba(0, 240, 255, 0.04) 0%, transparent 60%),
             radial-gradient(ellipse at 80% 70%, rgba(255, 51, 102, 0.03) 0%, transparent 50%),
             radial-gradient(ellipse at 50% 100%, rgba(0, 240, 255, 0.02) 0%, transparent 40%);
           z-index: 0;
           animation: fireGlow 8s ease-in-out infinite alternate;
+          pointer-events: none;
         }
 
         @keyframes fireGlow {
-          0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+          0% { opacity: 0.5; transform: scale(1) rotate(0deg); }
           100% { opacity: 1; transform: scale(1.05) rotate(2deg); }
         }
 
@@ -429,6 +444,22 @@ export default function Home() {
         }
 
         .footer span { color: var(--primary); }
+
+        /* منع أي خلفية بيضاء */
+        ::-webkit-scrollbar {
+          width: 4px;
+          background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-track {
+          background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+          background: var(--border);
+          border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: var(--primary);
+        }
 
         @media (max-width: 480px) {
           .container { padding: 12px 10px 20px; }
